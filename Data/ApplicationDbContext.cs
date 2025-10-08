@@ -10,12 +10,15 @@ namespace mvcproducts.Data
         }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Pedido> Pedidos { get; set; }
+        public DbSet<PedidoProducto> PedidoProductos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configuración adicional del modelo si es necesaria
+            // Configuración del modelo Product
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -25,7 +28,51 @@ namespace mvcproducts.Data
                 entity.Property(e => e.Category).HasMaxLength(50);
             });
 
-            // Datos de ejemplo se pueden agregar después de crear la migración
+            // Configuración del modelo Usuario
+            modelBuilder.Entity<Usuario>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.NombreCompleto).IsRequired().HasMaxLength(200);
+                entity.Property(e => e.Email).IsRequired().HasMaxLength(100);
+                entity.Property(e => e.Telefono).HasMaxLength(20);
+                
+                // Índice único para el email
+                entity.HasIndex(e => e.Email).IsUnique();
+            });
+
+            // Configuración del modelo Pedido
+            modelBuilder.Entity<Pedido>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                
+                // Relación con Usuario
+                entity.HasOne(e => e.Usuario)
+                      .WithMany(u => u.Pedidos)
+                      .HasForeignKey(e => e.UsuarioId)
+                      .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // Configuración del modelo PedidoProducto
+            modelBuilder.Entity<PedidoProducto>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.PrecioUnitario).HasColumnType("decimal(18,2)");
+                
+                // Relación con Pedido
+                entity.HasOne(e => e.Pedido)
+                      .WithMany(p => p.PedidoProductos)
+                      .HasForeignKey(e => e.PedidoId)
+                      .OnDelete(DeleteBehavior.Cascade);
+                
+                // Relación con Product
+                entity.HasOne(e => e.Producto)
+                      .WithMany(p => p.PedidoProductos)
+                      .HasForeignKey(e => e.ProductoId)
+                      .OnDelete(DeleteBehavior.Restrict);
+                
+                // Índice compuesto para evitar duplicados
+                entity.HasIndex(e => new { e.PedidoId, e.ProductoId }).IsUnique();
+            });
         }
     }
 }

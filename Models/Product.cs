@@ -36,6 +36,9 @@ namespace mvcproducts.Models
         [Display(Name = "Fecha de Actualización")]
         [DataType(DataType.DateTime)]
         public DateTime? UpdatedDate { get; set; }
+
+        // Propiedad de navegación hacia PedidoProducto
+        public virtual ICollection<PedidoProducto> PedidoProductos { get; set; } = new List<PedidoProducto>();
     }
 }
 

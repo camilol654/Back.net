@@ -29,11 +29,14 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Aplicar migraciones automáticamente
+// Aplicar migraciones automáticamente y cargar datos mock
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     context.Database.Migrate();
+    
+    // Cargar datos mock
+    await mvcproducts.Seeders.DbSeeder.SeedAsync(context);
 }
 
 // Configure the HTTP request pipeline.
