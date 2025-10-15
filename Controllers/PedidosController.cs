@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using mvcproducts.Data;
 using mvcproducts.Models;
+using mvcproducts.Models.Reports;
 
 namespace mvcproducts.Controllers
 {
@@ -14,6 +16,39 @@ namespace mvcproducts.Controllers
         public PedidosController(ApplicationDbContext context)
         {
             _context = context;
+        }
+
+        // GET: api/Pedidos/resumen-usuario/5
+        [HttpGet("resumen-usuario/{usuarioId}")]
+        public async Task<ActionResult<IEnumerable<UserOrderSummary>>> GetResumenUsuario(int usuarioId)
+        {
+            // Si el proveedor es SQL Server, intentamos ejecutar el SP
+            var provider = _context.Database.ProviderName ?? string.Empty;
+
+            if (provider.Contains("SqlServer", StringComparison.OrdinalIgnoreCase))
+            {
+                var usuarioParam = new SqlParameter("@UsuarioId", usuarioId);
+                var resultados = await _context.UserOrderSummaries
+                    .FromSqlRaw("EXEC dbo.sp_GetUserOrdersSummary @UsuarioId", usuarioParam)
+                    .ToListAsync();
+                return resultados;
+            }
+
+            // Fallback para SQLite u otros proveedores: calcular con LINQ
+            var resumen = await _context.Pedidos
+                .Where(p => p.UsuarioId == usuarioId)
+                .Select(p => new UserOrderSummary
+                {
+                    PedidoId = p.Id,
+                    FechaPedido = p.FechaPedido,
+                    NumLineas = p.PedidoProductos.Count,
+                    CantidadTotal = p.PedidoProductos.Sum(pp => pp.Cantidad),
+                    TotalPedido = p.PedidoProductos.Sum(pp => pp.Cantidad * pp.PrecioUnitario)
+                })
+                .OrderByDescending(r => r.FechaPedido)
+                .ToListAsync();
+
+            return resumen;
         }
 
         // GET: api/Pedidos

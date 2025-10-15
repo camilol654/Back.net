@@ -293,6 +293,64 @@ curl -X POST "https://localhost:7xxx/api/Pedidos" \
 - [ASP.NET Core Web API](https://docs.microsoft.com/aspnet/core/web-api/)
 - [Swagger/OpenAPI](https://swagger.io/)
 
+## 🧪 Procedimientos Almacenados (SQL Server)
+
+La solución incluye un ejemplo de procedimiento almacenado para generar un resumen de pedidos por usuario.
+
+### Script del Procedimiento
+
+Archivo: `Database/StoredProcedures/sp_GetUserOrdersSummary.sql`
+
+```sql
+CREATE OR ALTER PROCEDURE dbo.sp_GetUserOrdersSummary
+    @UsuarioId INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        p.Id AS PedidoId,
+        p.FechaPedido,
+        COUNT(pp.Id) AS NumLineas,
+        SUM(pp.Cantidad) AS CantidadTotal,
+        SUM(pp.Cantidad * pp.PrecioUnitario) AS TotalPedido
+    FROM Pedidos p
+    INNER JOIN PedidoProductos pp ON pp.PedidoId = p.Id
+    WHERE p.UsuarioId = @UsuarioId
+    GROUP BY p.Id, p.FechaPedido
+    ORDER BY p.FechaPedido DESC;
+END;
+```
+
+### Cómo instalarlo en SQL Server
+
+1. Cambia tu cadena de conexión a SQL Server en `appsettings.json`:
+
+```json
+{
+  "ConnectionStrings": {
+    "SqlServerConnection": "Server=localhost;Database=mvcproducts;Trusted_Connection=True;TrustServerCertificate=True;"
+  }
+}
+```
+
+2. En `Program.cs`, usa `SqlServerConnection` y `UseSqlServer`.
+
+3. Ejecuta el script `sp_GetUserOrdersSummary.sql` en tu base de datos SQL Server.
+
+4. Aplica migraciones y ejecuta la app:
+
+```bash
+dotnet ef database update
+dotnet run
+```
+
+### Endpoint que lo consume
+
+- `GET /api/Pedidos/resumen-usuario/{usuarioId}`
+
+Si el proveedor es SQL Server, el endpoint ejecuta el SP. Si es SQLite, calcula el mismo resultado con LINQ como fallback.
+
 ## 🆘 Soporte
 
 Si encuentras algún problema durante la instalación:

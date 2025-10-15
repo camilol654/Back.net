@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using mvcproducts.Models;
+using mvcproducts.Models.Reports;
 
 namespace mvcproducts.Data
 {
@@ -13,6 +14,7 @@ namespace mvcproducts.Data
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<PedidoProducto> PedidoProductos { get; set; }
+        public DbSet<UserOrderSummary> UserOrderSummaries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -73,6 +75,9 @@ namespace mvcproducts.Data
                 // Índice compuesto para evitar duplicados
                 entity.HasIndex(e => new { e.PedidoId, e.ProductoId }).IsUnique();
             });
+
+            // Entidad sin clave para resultados de reportes / SPs
+            modelBuilder.Entity<UserOrderSummary>().HasNoKey();
         }
     }
 }
