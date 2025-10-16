@@ -59,6 +59,39 @@ namespace mvcproducts.Controllers
                 .Include(p => p.Usuario)
                 .Include(p => p.PedidoProductos)
                 .ThenInclude(pp => pp.Producto)
+                .Select(p => new Pedido
+                {
+                    Id = p.Id,
+                    FechaPedido = p.FechaPedido,
+                    UsuarioId = p.UsuarioId,
+                    Usuario = new Usuario
+                    {
+                        Id = p.Usuario.Id,
+                        NombreCompleto = p.Usuario.NombreCompleto,
+                        Email = p.Usuario.Email,
+                        Telefono = p.Usuario.Telefono,
+                        FechaRegistro = p.Usuario.FechaRegistro
+                    },
+                    PedidoProductos = p.PedidoProductos.Select(pp => new PedidoProducto
+                    {
+                        Id = pp.Id,
+                        PedidoId = pp.PedidoId,
+                        ProductoId = pp.ProductoId,
+                        Cantidad = pp.Cantidad,
+                        PrecioUnitario = pp.PrecioUnitario,
+                        Producto = new Product
+                        {
+                            Id = pp.Producto.Id,
+                            Name = pp.Producto.Name,
+                            Description = pp.Producto.Description,
+                            Price = pp.Producto.Price,
+                            Stock = pp.Producto.Stock,
+                            Category = pp.Producto.Category,
+                            CreatedDate = pp.Producto.CreatedDate,
+                            UpdatedDate = pp.Producto.UpdatedDate
+                        }
+                    }).ToList()
+                })
                 .ToListAsync();
         }
 
@@ -70,7 +103,41 @@ namespace mvcproducts.Controllers
                 .Include(p => p.Usuario)
                 .Include(p => p.PedidoProductos)
                 .ThenInclude(pp => pp.Producto)
-                .FirstOrDefaultAsync(p => p.Id == id);
+                .Where(p => p.Id == id)
+                .Select(p => new Pedido
+                {
+                    Id = p.Id,
+                    FechaPedido = p.FechaPedido,
+                    UsuarioId = p.UsuarioId,
+                    Usuario = new Usuario
+                    {
+                        Id = p.Usuario.Id,
+                        NombreCompleto = p.Usuario.NombreCompleto,
+                        Email = p.Usuario.Email,
+                        Telefono = p.Usuario.Telefono,
+                        FechaRegistro = p.Usuario.FechaRegistro
+                    },
+                    PedidoProductos = p.PedidoProductos.Select(pp => new PedidoProducto
+                    {
+                        Id = pp.Id,
+                        PedidoId = pp.PedidoId,
+                        ProductoId = pp.ProductoId,
+                        Cantidad = pp.Cantidad,
+                        PrecioUnitario = pp.PrecioUnitario,
+                        Producto = new Product
+                        {
+                            Id = pp.Producto.Id,
+                            Name = pp.Producto.Name,
+                            Description = pp.Producto.Description,
+                            Price = pp.Producto.Price,
+                            Stock = pp.Producto.Stock,
+                            Category = pp.Producto.Category,
+                            CreatedDate = pp.Producto.CreatedDate,
+                            UpdatedDate = pp.Producto.UpdatedDate
+                        }
+                    }).ToList()
+                })
+                .FirstOrDefaultAsync();
 
             if (pedido == null)
             {
@@ -89,6 +156,39 @@ namespace mvcproducts.Controllers
                 .Include(p => p.Usuario)
                 .Include(p => p.PedidoProductos)
                 .ThenInclude(pp => pp.Producto)
+                .Select(p => new Pedido
+                {
+                    Id = p.Id,
+                    FechaPedido = p.FechaPedido,
+                    UsuarioId = p.UsuarioId,
+                    Usuario = new Usuario
+                    {
+                        Id = p.Usuario.Id,
+                        NombreCompleto = p.Usuario.NombreCompleto,
+                        Email = p.Usuario.Email,
+                        Telefono = p.Usuario.Telefono,
+                        FechaRegistro = p.Usuario.FechaRegistro
+                    },
+                    PedidoProductos = p.PedidoProductos.Select(pp => new PedidoProducto
+                    {
+                        Id = pp.Id,
+                        PedidoId = pp.PedidoId,
+                        ProductoId = pp.ProductoId,
+                        Cantidad = pp.Cantidad,
+                        PrecioUnitario = pp.PrecioUnitario,
+                        Producto = new Product
+                        {
+                            Id = pp.Producto.Id,
+                            Name = pp.Producto.Name,
+                            Description = pp.Producto.Description,
+                            Price = pp.Producto.Price,
+                            Stock = pp.Producto.Stock,
+                            Category = pp.Producto.Category,
+                            CreatedDate = pp.Producto.CreatedDate,
+                            UpdatedDate = pp.Producto.UpdatedDate
+                        }
+                    }).ToList()
+                })
                 .ToListAsync();
 
             return pedidos;
