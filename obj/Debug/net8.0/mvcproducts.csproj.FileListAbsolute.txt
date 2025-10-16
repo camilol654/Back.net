@@ -195,3 +195,4 @@ C:\Users\camil\source\repos\mvcproducts\mvcproducts\bin\Debug\net8.0\zh-Hant\Mic
 C:\Users\camil\source\repos\mvcproducts\mvcproducts\bin\Debug\net8.0\runtimes\linux-musl-s390x\native\libe_sqlite3.so
 C:\Users\camil\source\repos\mvcproducts\mvcproducts\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Users\camil\source\repos\mvcproducts\mvcproducts\obj\Debug\net8.0\mvcproducts.sourcelink.json
+C:\Users\camil\source\repos\mvcproducts\mvcproducts\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

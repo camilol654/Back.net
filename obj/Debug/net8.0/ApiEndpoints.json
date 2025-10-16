@@ -110,6 +110,32 @@
   },
   {
     "ContainingType": "mvcproducts.Controllers.PedidosController",
+    "Method": "GetResumenUsuario",
+    "RelativePath": "api/Pedidos/resumen-usuario/{usuarioId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "usuarioId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[mvcproducts.Models.Reports.UserOrderSummary, mvcproducts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "mvcproducts.Controllers.PedidosController",
     "Method": "GetPedidosByUsuario",
     "RelativePath": "api/Pedidos/usuario/{usuarioId}",
     "HttpMethod": "GET",
