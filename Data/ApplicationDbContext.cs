@@ -24,19 +24,19 @@ namespace mvcproducts.Data
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
-                entity.Property(e => e.Description).HasMaxLength(500);
+                entity.Property(e => e.Name).IsRequired().HasMaxLength(100).HasColumnType("nvarchar");
+                entity.Property(e => e.Description).HasMaxLength(500).HasColumnType("nvarchar");
                 entity.Property(e => e.Price).HasColumnType("decimal(18,2)");
-                entity.Property(e => e.Category).HasMaxLength(50);
+                entity.Property(e => e.Category).HasMaxLength(50).HasColumnType("nvarchar");
             });
 
             // Configuración del modelo Usuario
             modelBuilder.Entity<Usuario>(entity =>
             {
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.NombreCompleto).IsRequired().HasMaxLength(200);
-                entity.Property(e => e.Email).IsRequired().HasMaxLength(100);
-                entity.Property(e => e.Telefono).HasMaxLength(20);
+                entity.Property(e => e.NombreCompleto).IsRequired().HasMaxLength(200).HasColumnType("nvarchar");
+                entity.Property(e => e.Email).IsRequired().HasMaxLength(100).HasColumnType("nvarchar");
+                entity.Property(e => e.Telefono).HasMaxLength(20).HasColumnType("nvarchar");
                 
                 // Índice único para el email
                 entity.HasIndex(e => e.Email).IsUnique();

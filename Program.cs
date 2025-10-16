@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Configurar Entity Framework
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("SqliteConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Configurar CORS
 builder.Services.AddCors(options =>
