@@ -11,12 +11,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("mvcproducts")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("c")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4c916ac079d6e5f4e434d6f08283e0912efca39b")]
-[assembly: System.Reflection.AssemblyProductAttribute("mvcproducts")]
-[assembly: System.Reflection.AssemblyTitleAttribute("mvcproducts")]
+[assembly: System.Reflection.AssemblyProductAttribute("c")]
+[assembly: System.Reflection.AssemblyTitleAttribute("c")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Generado por la clase WriteCodeFragment de MSBuild.

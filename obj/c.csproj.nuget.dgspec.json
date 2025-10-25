@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\camil\\source\\repos\\mvcproducts\\mvcproducts\\mvcproducts.csproj": {}
+    "C:\\Users\\camil\\source\\repos\\mvcproducts\\mvcproducts\\c.csproj": {}
   },
   "projects": {
-    "C:\\Users\\camil\\source\\repos\\mvcproducts\\mvcproducts\\mvcproducts.csproj": {
+    "C:\\Users\\camil\\source\\repos\\mvcproducts\\mvcproducts\\c.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\camil\\source\\repos\\mvcproducts\\mvcproducts\\mvcproducts.csproj",
-        "projectName": "mvcproducts",
-        "projectPath": "C:\\Users\\camil\\source\\repos\\mvcproducts\\mvcproducts\\mvcproducts.csproj",
+        "projectUniqueName": "C:\\Users\\camil\\source\\repos\\mvcproducts\\mvcproducts\\c.csproj",
+        "projectName": "c",
+        "projectPath": "C:\\Users\\camil\\source\\repos\\mvcproducts\\mvcproducts\\c.csproj",
         "packagesPath": "C:\\Users\\camil\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\camil\\source\\repos\\mvcproducts\\mvcproducts\\obj\\",
         "projectStyle": "PackageReference",
